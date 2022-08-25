@@ -1,19 +1,33 @@
 const express = require('express')
+const path = require('path')
+require('dotenv').config()
+const cors = require('cors')
+
+// App de Express
 const app = express()
+app.use(cors())
 
 
-/* chrome.setDefaultService(new chrome.ServiceBuilder(chromedriver.path).build()) */
-
+//PORT
 const port = process.env.PORT || 3000
-//parse application/json
-app.use(express.json())
-//parse application/x-www-form-urlencoded
-app.use(express.urlencoded({ extended: false }))
+// Node Server
+const server = require('http').createServer(app)
+module.exports.io = require('socket.io')(server,{
+  cors: {
+    origin: '*'
+  }
+})
+require('./sockets/socket')
 
-// habilitar la carpeta publica para ser accedida
+// Path público
+const publicPath = path.resolve(__dirname, 'public')
+app.use(express.static(publicPath))
 
-app.use(require('./routes/routes'))
+// Mis Rutas
+app.use('/ws', require('./routes/routes'));
 
-app.listen(port, () => {
-  console.log(`Entrar a: http://localhost:${port}`)
+server.listen(process.env.PORT, (err) => {
+  if (err) throw new Error(err)
+
+  console.log('Servidor corriendo en puerto', process.env.PORT)
 })

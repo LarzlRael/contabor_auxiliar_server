@@ -8,6 +8,6 @@ router.get('/', (req, res) => {
 router.post('/dialogflow', async (req, res) => {
   const { body } = req
   console.log(body)
-  return res.send('que fue')
+  return res.json({ text: body.texto })
 })
 module.exports = router

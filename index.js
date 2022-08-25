@@ -22,12 +22,13 @@ require('./sockets/socket')
 // Path público
 const publicPath = path.resolve(__dirname, 'public')
 app.use(express.static(publicPath))
+app.use(express.json())
 
 // Mis Rutas
 app.use('/ws', require('./routes/routes'));
 
-server.listen(process.env.PORT, (err) => {
+server.listen(port, (err) => {
   if (err) throw new Error(err)
 
-  console.log('Servidor corriendo en puerto', process.env.PORT)
+  console.log('Servidor corriendo en puerto', port)
 })

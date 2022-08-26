@@ -7,7 +7,16 @@ router.get('/', (req, res) => {
 
 router.post('/dialogflow', async (req, res) => {
   console.log(req.body)
-  const { unidades, cuenta, ingresos, currency, df, it, pago } = req.body
+  const {
+    unidades,
+    cuenta,
+    ingresos,
+    currency,
+    df,
+    it,
+    pago,
+    amount,
+  } = req.body
   const io = req.app.get('socketio')
 
   io.emit('mensaje', {
@@ -18,6 +27,7 @@ router.post('/dialogflow', async (req, res) => {
     df,
     it,
     pago,
+    amount,
   })
   res.json('se enviaron los datos')
 })

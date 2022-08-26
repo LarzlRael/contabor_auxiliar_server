@@ -13,7 +13,6 @@ router.post('/dialogflow', async (req, res) => {
 
   io.emit('mensaje', {
     unidades,
-    cuenta
   })
   res.json('se enviaron los datos')
 })

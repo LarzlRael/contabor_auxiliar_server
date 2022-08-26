@@ -6,12 +6,15 @@ router.get('/', (req, res) => {
 })
 
 router.post('/dialogflow', async (req, res) => {
-  const { texto } = req.body
+  const { unidades, cuenta } = req.body
   /* console.log(asientoInfo) */
   /* return res.json({ text: body.texto }) */
   const io = req.app.get('socketio')
 
-  io.emit('mensaje', texto)
+  io.emit('mensaje', {
+    unidades,
+    cuenta
+  })
   res.json(texto)
 })
 

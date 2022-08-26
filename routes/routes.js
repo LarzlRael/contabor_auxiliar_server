@@ -6,6 +6,7 @@ router.get('/', (req, res) => {
 })
 
 router.post('/dialogflow', async (req, res) => {
+  console.log(req.body)
   const { unidades, cuenta, ingresos, currency, df, it, pago } = req.body
   const io = req.app.get('socketio')
 
